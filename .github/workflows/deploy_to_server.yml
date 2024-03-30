@@ -3,23 +3,22 @@ name: Niceform Deploy
 on:
   push:
     branches:
-      - release
+      - experiment/autu-deployment
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-23.04
 
     steps:
     - name: ssh deploy
       uses: easingthemes/ssh-deploy@v5.0.3
       with:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-        ARGS: "-rlgoDzvc -i"
-        SOURCE: "dist/"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        SOURCE: "dist/"
         TARGET: "/var/www/niceform"
-        EXCLUDE: "/dist/, /node_modules/"
+        ARGS: "-rlgoDzvc -i"
         SCRIPT_BEFORE: |
           whoami
           ls -al
