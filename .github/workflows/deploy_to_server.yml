@@ -2,8 +2,7 @@ name: Niceform Deploy
 
 on:
   push:
-    branches:
-      - experiment/auto-deployment
+    branches: [ "experiment/auto-deployment"]
 
 jobs:
   deploy:
