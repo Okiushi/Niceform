@@ -2,7 +2,7 @@ name: deploy
 on:
   push:
     branches:
-      [ "experiment/auto-deploy" ]
+      [ "main" ]
 jobs:
   Connexion:
     runs-on: ubuntu-latest
@@ -28,11 +28,13 @@ jobs:
           script: |
             last_directory=$(basename ${{ runner.workspace }})
             cd /var/www/niceform
-            git clone https://github.com/${{ github.repository }}.git 
-  Restart:
-    needs: Copy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restart apache2
-        run: |
-          systemctl restart apache2
+            
+            if [ -d "niceform/.git" ]; then
+              cd niceform
+              git pull origin main
+            else
+              git clone --depth 1 --single-branch https://github.com/${{ github.repository }}.git temp_repo
+              mv temp_repo/* temp_repo/.git* .
+              rm -rf temp_repo/
+            fi
+            
