@@ -8,18 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install SSH key
+      - name: Add SSH key to agent (securely)**
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Sync files to VPS
+      - name: Set up strict SSH host checking (recommended)**
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ${{secrets.VPS_USER}}:/var/www/niceforms
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          ssh-keyscan -h ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts  # Ensure strict permissions
+
+      - name: Install dependencies (optional)
+        run: |
+          sudo apt-get update && sudo apt-get install -y rsync  # Install rsync
+
+      - name: Sync files to VPS (securely)**
+        run: |
+          export SSH_AUTH_SOCK="$RUNNER_DIR/agent.sock"  # Use SSH agent socket
+
+          # Avoid hardcoded paths:
+          rsync -avz -e "ssh -o StrictHostKeyChecking=yes" "$GITHUB_WORKSPACE/" ${{ secrets.VPS_DEPLOY_PATH }}
