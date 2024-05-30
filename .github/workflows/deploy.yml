@@ -17,11 +17,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up strict SSH host checking (recommended)**
-        run: |
-          ssh-keyscan -h ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts  # Ensure strict permissions
-
       - name: Install dependencies (optional)
         run: |
           sudo apt-get update && sudo apt-get install -y rsync  # Install rsync
