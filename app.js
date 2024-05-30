@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('dotenv').config();
 
 // Définition du port d'écoute sur 3000 par défaut si non défini dans les variables d'environnement
 const port= process.env.PORT || 3000;
