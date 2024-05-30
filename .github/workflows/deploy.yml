@@ -12,18 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Add SSH key to agent (securely)**
+      - name: Add SSH key to agent (securely)
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Install dependencies (optional)
+      - name: Sync files to VPS
         run: |
-          sudo apt-get update && sudo apt-get install -y rsync  # Install rsync
-
-      - name: Sync files to VPS (securely)**
-        run: |
-          export SSH_AUTH_SOCK="$RUNNER_DIR/agent.sock"  # Use SSH agent socket
-
-          # Avoid hardcoded paths:
-          rsync -avz -e "ssh -o StrictHostKeyChecking=yes" "$GITHUB_WORKSPACE/" ${{ secrets.VPS_DEPLOY_PATH }}
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts  # Add VPS host to known_hosts
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" "$GITHUB_WORKSPACE/" ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_DEPLOY_PATH }}
+          
