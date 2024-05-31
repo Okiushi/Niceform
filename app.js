@@ -1,10 +1,9 @@
-require('dotenv').config(); // Récupération des variables d'environnement
-
 const express = require('express')
 const app = express()
 require('dotenv').config();
 
 // Définition du port d'écoute sur 3000 par défaut si non défini dans les variables d'environnement
+const port= process.env.SRV_PORT || 3000;
 const defaultRoute = process.env.DEFAULT_ROUTE || '/';
 
 // Import des routes et association à l'application
