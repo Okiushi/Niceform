@@ -1,0 +1,143 @@
+:root {
+    --primary-color: #00407A;
+    --primary-color-light: #004fA0;
+    --border-color: #dddddd;
+    --background-color: #fcfcff;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+body  {
+    font-family: sans-serif;
+    background: var(--background-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+#main {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+.box {
+    padding: 20px 30px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-block: 10px;
+    width: 400px;
+}
+
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.flex {
+    display: flex;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    color: white;
+    padding-inline: 10px;
+}
+
+header h1 {
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    color: #fff;
+}
+
+button {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-block: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #f5f5f7;
+}
+
+button:active {
+    background: #dddddd;
+}
+
+form input {
+    padding-block: 8px;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    margin-block: 10px;
+    width: 100%;
+}
+
+form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-block: 0px -10px;
+    display: block;}
+
+form input:focus {
+    outline: none;
+    border-color: var(--primary-color-light);
+}
+
+form input[type="submit"] {
+    background: var(--primary-color);
+    color: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+form input[type="submit"]:hover {
+    background: var(--primary-color-light);
+}
+
+form input[type="submit"]:active {
+    background: var(--primary-color);
+}
+
+form input[type="submit"]:disabled {
+    background: #f5f5f7;
+    color: #dddddd;
+    border-color: #dddddd;
+    cursor: not-allowed;
+}
+
+.col2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

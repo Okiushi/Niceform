@@ -1,22 +1,39 @@
 const express = require('express')
 const app = express()
-require('dotenv').config();
+const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config(); // Chargement des variables d'environnement
 
-// Définition du port d'écoute sur 3000 par défaut si non défini dans les variables d'environnement
-const port= process.env.SRV_PORT || 3000;
-const defaultRoute = process.env.DEFAULT_ROUTE || '/';
+// Connexion à la base de données
+mongoose.connect(process.env.DB_CONECTION_URI,)
+    .then(() => console.log('Successful database server connection'))
+    .catch(error => console.error('Connection to database server failed !', error));
 
-// Import des routes et association à l'application
-const indexRouter = require('./routes/index_router');
-const devRouter = require('./routes/devhome_router');
+const port = process.env.SRV_PORT || 3000; // Définition du port d'écoute
 
-// Association des routes à l'application
-app.use(defaultRoute + '/', indexRouter);
-app.use(defaultRoute + '/dev', devRouter);
+app.use(express.json()); // Middleware pour parser les requêtes en JSON
+app.use(express.urlencoded({ extended: false })); // Middleware pour parser les requêtes POST
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'ejs'); // Définition du moteur de rendu de vue
+// Définition des middlewares de l'application
+const indexRouter = require('./routes/index_router'); 
+const apiRouter = require('./routes/api_router');
+const authRouter = require('./routes/auth_router');
+
+// Définition des routes des middlewares
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use('/api', apiRouter);
+
+// Page pour les erreurs 404, mais pas pour les requetes api
+app.use((req, res, next) => {
+    if (req.originalUrl.includes('/api')) {
+        return next();
+    }
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+});
 
 // Lancement de l'application
 app.listen(port, () => {
-    console.log(`Niceforms application launched on http://localhost:${port}${defaultRoute}`);
+    console.log(`Application launched on http://localhost:${port}`);
 });
