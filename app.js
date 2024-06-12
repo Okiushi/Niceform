@@ -12,19 +12,28 @@ mongoose.connect(process.env.DB_CONECTION_URI,)
 const port = process.env.SRV_PORT || 3000; // Définition du port d'écoute
 
 app.use(express.json()); // Middleware pour parser les requêtes en JSON
+app.use(express.urlencoded({ extended: false })); // Middleware pour parser les requêtes POST
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Définition des middlewares de l'application
 const indexRouter = require('./routes/index_router'); 
-const adminRouter = require('./routes/admin_router');
 const apiRouter = require('./routes/api_router');
+const authRouter = require('./routes/auth_router');
 
 // Définition des routes des middlewares
 app.use('/', indexRouter);
-app.use('/admin', adminRouter);
+app.use('/auth', authRouter);
 app.use('/api', apiRouter);
+
+// Page pour les erreurs 404, mais pas pour les requetes api
+app.use((req, res, next) => {
+    if (req.originalUrl.includes('/api')) {
+        return next();
+    }
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+});
 
 // Lancement de l'application
 app.listen(port, () => {
-    console.log(`Application launched on http://localhost:${port}}`);
+    console.log(`Application launched on http://localhost:${port}`);
 });
