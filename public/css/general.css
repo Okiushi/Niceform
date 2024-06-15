@@ -141,3 +141,13 @@ form input[type="submit"]:disabled {
     justify-content: space-between;
     align-items: center;
 }
+
+
+.btn-danger {
+    color: #ff0022;
+}
+
+.btn-danger:hover {
+    color: #ff0022;
+    cursor: pointer;
+}

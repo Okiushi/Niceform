@@ -41,17 +41,15 @@ const getUser = (req, res) => {
             return res.status(404).send();
         }
         // on supprime les informations sensibles et inutiles
-        user.email = undefined;
+        if (req.user._id !== _id) { // si l'utilisateur n'est pas le propriétaire du compte on envoie pas l'email et les formulaires
+            user.email = undefined;
+            user.forms = undefined;
+        }
         user.password = undefined;
-        user.forms = undefined;
         user.created_at = undefined;
         user.__v = undefined;
         
         // On envoie ces informations uniquement si l'utilisateur est le propriétaire du compte
-        if (req.user._id === _id) {
-            user.email = req.user.email;
-            user.forms = req.user.forms;
-        }
         
         res.send(user);
     }).catch((error) => {
@@ -77,10 +75,7 @@ const getAllUsers = (req, res) => {
 }
 
 const update = (req, res) => {
-    const _id = req.params.id;
-    if (!user) {
-        return res.status(404).send();
-    }
+    const _id = req.params.id || req.user._id;
     
     if (req.body.password && req.body.password.length < 8) {
         return res.status(400).send({message: 'Password must be at least 8 characters long'});
@@ -90,7 +85,7 @@ const update = (req, res) => {
     const domain = req.body.email.split('@')[1];
     req.body.external = !COMPANY_DOMAIN.split(',').includes(domain);
     
-    User.findByIdAndUpdate(_id, req.body).then((user) => {
+    User.findByIdAndUpdate(_id, req.body, {new: true}).then((user) => {
         if (!user) {
             return res.status(404).send();
         }

@@ -3,19 +3,19 @@
     margin: 0 auto;
 }
 
-.user {
+.form {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.user:not(:last-child)
+.form:not(:last-child)
 {
     border-bottom: 1px solid #dddddd;
 }
 
-#userlist {
+#formlist {
     overflow-y: auto;
     border: 1px solid #dddddd;
     border-radius: 10px;
