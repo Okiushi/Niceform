@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
       - name: Add SSH key to agent (securely)
         uses: webfactory/ssh-agent@v0.5.3
         with:
