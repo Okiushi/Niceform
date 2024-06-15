@@ -16,6 +16,18 @@ const logout = (req, res) => {
     res.sendFile('logout.html', rootDir)
 }
 
+const editor = (req, res) => {
+    res.sendFile('editor.html', rootDir)
+}
+
+const form = (req, res) => {
+    res.sendFile('form.html', rootDir)
+}
+
+const response = (req, res) => {
+    res.sendFile('response.html', rootDir)
+}
+
 const admin_home = (req, res) => {
     res.sendFile('admin/admin_home.html', rootDir)
 };
@@ -24,4 +36,4 @@ const admin_user = (req, res) => {
     res.sendFile('admin/admin_user.html', rootDir)
 };
 
-module.exports = {home, login, register, logout, admin_home, admin_user};
+module.exports = {home, login, register, logout, editor, response, form, admin_home, admin_user};

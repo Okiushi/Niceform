@@ -12,7 +12,7 @@ const displayUsers = async () => {
                 $('#output').append(`
                     <div class="user">
                         <p><b>${user.firstname} ${user.lastname.toUpperCase()} </b>${user.external ? '(externe)' : ''}<br>${user._id}</p>
-                        <button class="del-user-btn" data-id="${user._id}">Supprimer</button>
+                        <button class="btn-danger del-user-btn" data-id="${user._id}">Supprimer</button>
                     </div>
                 `);
             });

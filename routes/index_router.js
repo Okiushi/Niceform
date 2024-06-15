@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const display = require('../controllers/index_controller');
-const {auth} = require('../middleware/auth');
 
 router.get('/', display.home);
+router.get('/editor', display.editor);
+router.get('/responses', display.response);
+router.get('/form', display.form);
 
 router.get('/login', display.login);
 router.get('/register', display.register);
