@@ -29,16 +29,6 @@ header a {
     width: 900px;
 }
 
-.required {
-    color: red;
-    padding: 5px;
-    background: white;
-}
-
-.not-required {
-    color: grey;
-}
-
 #field {
     display: flex;
     justify-content: space-between;
@@ -46,6 +36,6 @@ header a {
     padding: 10px;
 }
 
-#field label {
-    width: 200px;
+#required-message {
+    color: grey;
 }

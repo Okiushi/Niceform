@@ -91,7 +91,39 @@ button:active {
     background: #dddddd;
 }
 
-form input {
+button:disabled {
+    background: white;
+    color: #dddddd;
+    border-color: #dddddd;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-block: 5px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-color-light);
+}
+
+.btn-primary:active {
+    background: var(--primary-color);
+}
+
+.btn-primary:disabled {
+    background: white;
+    color: #dddddd;
+    border-color: #dddddd;
+    cursor: not-allowed;
+}
+
+input {
     padding-block: 8px;
     border: none;
     border-bottom: 1px solid #dddddd;
@@ -99,19 +131,19 @@ form input {
     width: 100%;
 }
 
-form label {
+label {
     font-size: 14px;
     font-weight: 500;
     color: #333;
     margin-block: 0px -10px;
     display: block;}
 
-form input:focus {
+input:focus {
     outline: none;
     border-color: var(--primary-color-light);
 }
 
-form input[type="submit"] {
+input[type="submit"] {
     background: var(--primary-color);
     color: #fff;
     border: 1px solid var(--primary-color);
@@ -121,15 +153,15 @@ form input[type="submit"] {
     width: 100%;
 }
 
-form input[type="submit"]:hover {
+input[type="submit"]:hover {
     background: var(--primary-color-light);
 }
 
-form input[type="submit"]:active {
+input[type="submit"]:active {
     background: var(--primary-color);
 }
 
-form input[type="submit"]:disabled {
+input[type="submit"]:disabled {
     background: #f5f5f7;
     color: #dddddd;
     border-color: #dddddd;

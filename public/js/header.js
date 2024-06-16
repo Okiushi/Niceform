@@ -9,7 +9,8 @@ document.querySelector('header').innerHTML = `
 `;
 
 const token = localStorage.getItem('token');
-if (token) {
+
+if (token && !window.location.href.includes('editor')) {
     fetch('/api/user', {
         headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
     }).then(response => {
