@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>NiceForms</title>
+    <script src="/js/safety_door.js"></script>
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/form.css">
 </head>
@@ -12,12 +13,19 @@
 <div id="main">
     <div class="center-div">
         <div class="box">
-            <h2>Bientôt</h2>
-            <button onclick="window.location.href='/'">Retour à l'accueil</button>
+            <h2>
+                <a id="titre">Chargement...</a>
+            </h2>
+            <div id="fields">
+
+            </div>
+            <p id="required-message"></p>
         </div>
     </div>
+    <button class="btn-primary">Envoyer</button>
 </div>
 
 <footer><script src="/js/footer.js"></script></footer>
 </body>
 </html>
+<script src="/js/form.js"></script>

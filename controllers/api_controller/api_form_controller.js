@@ -37,18 +37,17 @@ const getForm = async (req, res) => {
         }
 
         // si l'utilisateur n'est pas le propriétaire du formulaire ou l'administrateur
-        if (!user.forms.includes(_id) || !user._id === ADMIN_ID) {
-            form.sharelink = undefined;
-            form.share_at = undefined;
-            form.responses = undefined;
-            form.created_at = undefined;
-        }
+        //if (!user.forms.includes(_id) || !user._id === ADMIN_ID) {
+        //    form.sharelink = undefined;
+        //    form.share_at = undefined;
+        //    form.responses = undefined;
+        //    form.created_at = undefined;
+        //}
         
         // si le formulaire n'est pas public et que l'utilisateur n'est pas externe
-        if (form.public === false && user.external === false) {
-            form.fields = undefined;
-        }
-        form.__v = undefined;
+        //if (form.public === false && user.external === false) {
+        //    form.fields = undefined;
+        //}
         
         res.send(form);
     } catch (error) {
@@ -75,6 +74,7 @@ const getAllForms = (req, res) => {
 }
 
 const updateForm = async (req, res) => {
+    
     const _id = req.params.id;
     const user = await User.findById(req.user._id);
 
@@ -85,31 +85,20 @@ const updateForm = async (req, res) => {
 
     try {
         const form = await Form.findById(_id);
+
         if (!form) {
             return res.status(404).send();
         } else if (form.share_at !== null) { // Si le formulaire est partagé, on ne peut pas le modifier
             return res.status(403).send('This form is shared and cannot be updated');
         }
-
-        // Mise à jour des champs autorisés
+        // Mise à jour des champs du formulaire
         const updates = Object.keys(req.body);
-        const allowedUpdates = ['name', 'public', 'sharelink', 'fields', 'responses'];
-        const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
-
-        if (!isValidOperation) {
-            return res.status(400).send('Invalid updates!');
-        }
 
         updates.forEach((update) => form.set(update, req.body[update]));
 
         await form.save();
 
-        // On envoie le formulaire sans les champs inutiles
-        const formObject = form.toObject();
-        delete formObject.created_at;
-        delete formObject.__v;
-
-        res.send(formObject);
+        res.send(form);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -149,27 +138,27 @@ const shareForm = async (req, res) => {
     const _id = req.params.id;
     const user = await User.findById(req.user._id);
     
+    // Si l'utilisateur n'est pas le propriétaire du formulaire ou l'administrateur
     if (!(user.forms.includes(_id) || user._id === ADMIN_ID)) {
         return res.status(403).send('You are not allowed to share this form');
     }
     
     try {
         const form = await Form.findById(_id);
+        
         if (!form) {
             return res.status(404).send();
-        } else if (form.share_at !== null) {
-            return res.status(403).send('This form is already shared');
         }
         
-        form.sharelink = req.body.sharelink;
+        form.sharelink = _id;
         form.share_at = new Date();
         
         await form.save();
         
         res.send(form);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(400).send(error);
     }
 }
 
-module.exports = {createForm, getForm, getAllForms, updateForm, deleteForm};
+module.exports = {createForm, getForm, getAllForms, updateForm, deleteForm, shareForm};

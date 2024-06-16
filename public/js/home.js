@@ -5,14 +5,15 @@ const formLine = (form) => {
     // Si le formulaire est partagé, on affiche le bouton pour voir les réponses sinon on affiche le bouton pour modifier
     
     return `
-                <div class="form">
-                    <h4>${form.name}</h4>
-                    <p>${form.share_at ? `Partagé le ${new Date(form.share_at).toLocaleDateString()}` : 'Non partagé'}</p>
-                    <div class="form-link">
-                    ${form.share_at == null ? `<button class="btn btn-primary" onclick="window.location.href='/editor?id=${form._id}'">Modifier</button>` : `<button class="btn btn-primary" onclick="window.location.href='/responses?id=${form._id}'">Voir les ${form.responses.length} réponse(s)</button>`}
-                        <button class="btn btn-danger del-form-btn" data-id="${form._id}">Supprimer</button>
-                    </div>
-                </div>
+        <div class="form">
+            <h4>${form.name}</h4>
+            <p>${form.share_at ? `Partagé le ${new Date(form.share_at).toLocaleDateString()}` : 'Non partagé'}</p>
+            <div class="form-link">
+            ${form.share_at ? `<a href="/form?id=${form._id}" target="_blank">Lien</a>` : ''}
+            ${form.share_at == null ? `<button class="btn" onclick="window.location.href='/editor?id=${form._id}'">Modifier</button>` : `<button class="btn" onclick="window.location.href='/responses?id=${form._id}'">Voir les ${form.responses.length} réponse(s)</button>`}
+                <button class="btn btn-danger del-form-btn" data-id="${form._id}">Supprimer</button>
+            </div>
+        </div>
             `
 }
 
