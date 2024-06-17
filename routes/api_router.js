@@ -19,6 +19,7 @@ router.get('/forms', auth, form.getAllForms); // get all forms
 router.put('/form/:id', auth, form.updateForm); // update a form
 router.delete('/form/:id', auth, form.deleteForm); // delete a form
 router.post('/form/:id/share', auth, form.shareForm); // share a form
+router.post('/form/:id/response', auth, form.addResponse); // add a new response
 
 //routeur.post('/form/:id/response', auth, form.createResponse); // create a new response
 

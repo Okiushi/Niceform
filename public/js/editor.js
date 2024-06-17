@@ -50,7 +50,7 @@ const refreshForm = () => {
         const fieldElement = document.createElement('div');
         fieldElement.className = 'field';
         
-        const fieldText = document.createElement('p');
+        const fieldText = document.createElement('label');
         // Si il est requis on ajoute un * rouge
         fieldText.textContent = field.field_text + (field.required ? ' *' : '');
         fieldText.addEventListener('click', () => {
@@ -212,5 +212,6 @@ refreshForm();
     
 }).catch(error => {
     console.error('Error:', error);
+    alert('Impossible de récupérer les données du formulaire');
 });
 
