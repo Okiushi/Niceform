@@ -136,7 +136,10 @@ label {
     font-weight: 500;
     color: #333;
     margin-block: 0px -10px;
-    display: block;}
+    display: block;
+    z-index: 2;
+    position: relative;
+}
 
 input:focus {
     outline: none;

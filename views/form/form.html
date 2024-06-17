@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>NiceForms</title>
@@ -11,18 +11,20 @@
 <header><script src="/js/header.js"></script></header>
 
 <div id="main">
-    <div class="center-div">
-        <div class="box">
-            <h2>
-                <a id="titre">Chargement...</a>
-            </h2>
-            <div id="fields">
+    <form>
+        <div class="center-div">
+            <div class="box">
+                <h2>
+                    <a id="titre">Chargement...</a>
+                </h2>
+                <div id="fields">
 
+                </div>
+                <p id="required-message" style="display: none">* Champs requis</p>
             </div>
-            <p id="required-message"></p>
         </div>
-    </div>
-    <button class="btn-primary">Envoyer</button>
+        <input type="submit" id="send-btn">
+    </form>
 </div>
 
 <footer><script src="/js/footer.js"></script></footer>

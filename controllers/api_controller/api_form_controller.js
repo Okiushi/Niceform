@@ -161,4 +161,32 @@ const shareForm = async (req, res) => {
     }
 }
 
-module.exports = {createForm, getForm, getAllForms, updateForm, deleteForm, shareForm};
+const addResponse = async (req, res) => {
+    const _id = req.params.id;
+    const user = await User.findById(req.user._id);
+    
+    try {
+        const form = await Form.findById(_id);
+        
+        if (!form) {
+            return res.status(404).send();
+        }
+        
+        for (let [key, value] of Object.entries(req.body)) {
+            form.responses.push({
+                user_id: value.user_id,
+                form_data: value.form_data,
+                field_id: value.field_id,
+                created_at: value.created_at
+            });
+        }
+        
+        await form.save();
+        
+        res.send(form);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+module.exports = {createForm, getForm, getAllForms, updateForm, deleteForm, shareForm, addResponse};
